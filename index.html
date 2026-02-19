@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceReserve — Visual Booking for Your Venue</title>
+    <meta name="description" content="SpaceReserve is an iOS app that lets hospitality staff visually manage bookings on an interactive floor plan. Join the waitlist for early access.">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="assets/SpaceReserve_icon.png">
+    <link rel="apple-touch-icon" href="assets/SpaceReserve_icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="SpaceReserve — Visual Booking for Your Venue">
+    <meta property="og:description" content="Manage reservations on a live floor plan. iOS app launching soon — join the waitlist.">
+    <meta property="og:image" content="assets/SpaceReserve_icon.png">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           RESET & FOUNDATION
+           ============================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-primary:    #0D0D12;
+            --bg-secondary:  #1C1C2E;
+            --bg-tertiary:   #2A2D5A;
+            --glass-white:   rgba(255, 255, 255, 0.08);
+            --glass-border:  rgba(255, 255, 255, 0.12);
+            --text-primary:  #FFFFFF;
+            --text-secondary: rgba(235, 235, 245, 0.6);
+            --text-tertiary:  rgba(235, 235, 245, 0.3);
+            --accent-blue:   #0A84FF;
+            --accent-green:  #34C759;
+            --accent-purple: #7F71FF;
+            --accent-teal:   #6bffd3;
+            --radius-card:   20px;
+            --radius-pill:   999px;
+            --spacing-xs:    4px;
+            --spacing-s:     8px;
+            --spacing-m:     16px;
+            --spacing-l:     24px;
+            --spacing-xl:    40px;
+            --spacing-xxl:   64px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           BACKGROUND — Animated gradient mesh
+           ============================================ */
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-mesh::before,
+        .bg-mesh::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            animation: float 20s ease-in-out infinite alternate;
+        }
+
+        .bg-mesh::before {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+            top: -10%; left: -10%;
+        }
+
+        .bg-mesh::after {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--accent-teal), transparent 70%);
+            bottom: -10%; right: -15%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.15); }
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .page {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: var(--spacing-l);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xxl);
+            padding: var(--spacing-xxl) 0;
+        }
+
+        /* ============================================
+           LIQUID GLASS CARD
+           ============================================ */
+        .glass {
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.10) 0%,
+                rgba(255,255,255,0.04) 100%
+            );
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-card);
+            backdrop-filter: blur(40px) saturate(1.6);
+            -webkit-backdrop-filter: blur(40px) saturate(1.6);
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+
+        /* Highlight bar on top edge */
+        .glass--highlight {
+            position: relative;
+            overflow: hidden;
+        }
+        .glass--highlight::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.30),
+                transparent
+            );
+        }
+
+        /* ============================================
+           HEADER / LOGO
+           ============================================ */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-m);
+            text-align: center;
+        }
+
+        .logo-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: 22px;
+            box-shadow: 0 12px 40px rgba(127, 113, 255, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover { transform: scale(1.06) rotate(-2deg); }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            background: rgba(127, 113, 255, 0.15);
+            border: 1px solid rgba(127, 113, 255, 0.30);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent-purple);
+        }
+        .badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: var(--spacing-l);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(
+                135deg,
+                var(--text-primary) 0%,
+                var(--accent-teal) 50%,
+                var(--accent-purple) 100%
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer-text 8s ease-in-out infinite;
+        }
+        @keyframes shimmer-text {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           FEATURES
+           ============================================ */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-m);
+            width: 100%;
+        }
+
+        .feature {
+            padding: var(--spacing-l);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-s);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .feature:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 12px 40px rgba(0,0,0,0.45),
+                inset 0 1px 0 rgba(255,255,255,0.12);
+        }
+
+        .feature-icon {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .feature-icon--blue   { background: rgba(10,132,255,0.15);  }
+        .feature-icon--green  { background: rgba(52,199,89,0.15);   }
+        .feature-icon--purple { background: rgba(127,113,255,0.15); }
+        .feature-icon--teal   { background: rgba(107,255,211,0.15); }
+
+        .feature h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .feature p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           SCREENSHOTS GALLERY
+           ============================================ */
+        .screenshots {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: var(--spacing-m);
+            width: 100%;
+            padding: var(--spacing-l) 0;
+        }
+
+        .screenshots img {
+            width: 180px;
+            border-radius: 24px;
+            box-shadow:
+                0 16px 48px rgba(127, 113, 255, 0.15),
+                0 6px 24px rgba(0, 0, 0, 0.35);
+            transition: transform 0.4s ease;
+            flex-shrink: 0;
+        }
+        .screenshots img:hover { transform: scale(1.04) translateY(-6px); }
+
+        /* Center screenshot slightly larger */
+        .screenshots img.screen-center {
+            width: 200px;
+            border-radius: 26px;
+            box-shadow:
+                0 20px 60px rgba(127, 113, 255, 0.22),
+                0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Subtle glow behind the gallery */
+        .screenshots::before {
+            content: '';
+            position: absolute;
+            width: 420px; height: 260px;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(
+                circle,
+                rgba(127,113,255,0.16) 0%,
+                transparent 70%
+            );
+            z-index: -1;
+        }
+
+        .screen-labels {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-m);
+            width: 100%;
+            margin-top: calc(-1 * var(--spacing-s));
+        }
+
+        .screen-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-align: center;
+            width: 180px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        .screen-label.label-center {
+            width: 200px;
+        }
+
+        /* ============================================
+           WAITLIST / CONVERTKIT SECTION
+           ============================================ */
+        .waitlist {
+            width: 100%;
+            padding: var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-l);
+            text-align: center;
+        }
+
+        .waitlist h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .waitlist p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 420px;
+        }
+
+        /* Google Form embed — dark-mode integration */
+        .form-embed {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .form-embed iframe {
+            display: block;
+            width: 100%;
+            height: 380px;
+            border: none;
+            border-radius: 16px;
+            /* Invert the white Google Form into dark mode, then shift hue back */
+            filter: invert(0.88) hue-rotate(180deg) contrast(0.9);
+        }
+
+        /* Subtle inner ring for polish */
+        .form-embed::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            pointer-events: none;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            padding: var(--spacing-xl) 0 var(--spacing-l);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 600px) {
+            .features { grid-template-columns: 1fr; }
+            .page { padding: var(--spacing-m); }
+            .container { gap: var(--spacing-xl); }
+            .waitlist { padding: var(--spacing-l); }
+            .screenshots { gap: var(--spacing-s); }
+            .screenshots img { width: 110px; border-radius: 18px; }
+            .screenshots img.screen-center { width: 125px; border-radius: 20px; }
+            .screen-label { width: 110px; font-size: 0.6rem; }
+            .screen-label.label-center { width: 125px; }
+            .form-embed iframe { height: 420px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated gradient mesh background -->
+    <div class="bg-mesh"></div>
+
+    <div class="page">
+        <div class="container">
+
+            <!-- HEADER -->
+            <header class="header">
+                <img
+                    src="assets/SpaceReserve_icon.png"
+                    alt="SpaceReserve app icon"
+                    class="logo-icon"
+                    width="88" height="88"
+                >
+                <span class="badge">Coming Soon on iOS</span>
+            </header>
+
+            <!-- HERO -->
+            <section class="hero">
+                <h1>Your Venue. One&nbsp;Tap. Fully&nbsp;Booked.</h1>
+                <p>
+                    SpaceReserve is an offline-first iOS app that turns your floor plan into a live booking dashboard.
+                    See every table, manage reservations, and seat walk-ins — all from your iPhone, even without&nbsp;Wi-Fi.
+                </p>
+            </section>
+
+            <!-- APP SCREENSHOTS -->
+            <div class="screenshots">
+                <img
+                    src="assets/Dashboard-screen.png"
+                    alt="SpaceReserve dashboard with today's bookings and KPIs"
+                    loading="lazy"
+                >
+                <img
+                    src="assets/Floor_Plan-screen.png"
+                    alt="Interactive floor plan with tables and booking status"
+                    class="screen-center"
+                    loading="lazy"
+                >
+                <img
+                    src="assets/Analytics-screen.png"
+                    alt="Analytics view showing venue performance insights"
+                    loading="lazy"
+                >
+            </div>
+            <div class="screen-labels">
+                <span class="screen-label">Dashboard</span>
+                <span class="screen-label label-center">Floor Plan</span>
+                <span class="screen-label">Analytics</span>
+            </div>
+
+            <!-- FEATURES -->
+            <section class="features">
+                <div class="feature glass glass--highlight">
+                    <div class="feature-icon feature-icon--blue">📋</div>
+                    <h3>Visual Floor Plan</h3>
+                    <p>Tap tables on an interactive map to book, seat, or check availability at a&nbsp;glance.</p>
+                </div>
+                <div class="feature glass glass--highlight">
+                    <div class="feature-icon feature-icon--green">⚡</div>
+                    <h3>Instant Bookings</h3>
+                    <p>Create a reservation in&nbsp;seconds — with conflict detection built&nbsp;in.</p>
+                </div>
+                <div class="feature glass glass--highlight">
+                    <div class="feature-icon feature-icon--purple">📊</div>
+                    <h3>Smart Insights</h3>
+                    <p>Track peak hours, no-shows, and guest trends to make better&nbsp;decisions.</p>
+                </div>
+                <div class="feature glass glass--highlight">
+                    <div class="feature-icon feature-icon--teal">🔒</div>
+                    <h3>Offline-First</h3>
+                    <p>Works without Wi-Fi. Your data stays on-device — private and&nbsp;fast.</p>
+                </div>
+            </section>
+
+            <!-- WAITLIST -->
+            <section class="waitlist glass glass--highlight">
+                <h2>Get Early Access</h2>
+                <p>Be the first to try SpaceReserve when it launches. Drop your email and we'll let you&nbsp;know.</p>
+
+                <div class="form-embed">
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdrUtJgVS32FOnL3t0DhTjY1-907GVPL6UnhZdOJu2Ia9c-vw/viewform?embedded=true"
+                        title="Join the SpaceReserve waitlist"
+                        loading="lazy"
+                    >Loading…</iframe>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                &copy; 2026 SpaceReserve. Built for hospitality teams that move&nbsp;fast.
+            </footer>
+
+        </div>
+    </div>
+
+</body>
+</html>
