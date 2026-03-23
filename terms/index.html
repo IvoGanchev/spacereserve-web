@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service - SpaceReserve</title>
+<meta name="description" content="SpaceReserve Terms of Service. Read the terms that govern your use of SpaceReserve.">
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="../assets/SpaceReserve_icon.png">
+<link rel="apple-touch-icon" href="../assets/SpaceReserve_icon.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+        --bg-primary:    #0D0D12;
+        --bg-secondary:  #1C1C2E;
+        --glass-white:   rgba(255, 255, 255, 0.08);
+        --glass-border:  rgba(255, 255, 255, 0.12);
+        --text-primary:  #FFFFFF;
+        --text-secondary: rgba(235, 235, 245, 0.6);
+        --text-tertiary:  rgba(235, 235, 245, 0.3);
+        --accent-purple: #7F71FF;
+        --accent-teal:   #6bffd3;
+        --accent-blue:   #5b8def;
+        --radius-card:   20px;
+        --spacing-s:     8px;
+        --spacing-m:     16px;
+        --spacing-l:     24px;
+        --spacing-xl:    40px;
+        --spacing-xxl:   64px;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    .bg-mesh {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .bg-mesh::before,
+    .bg-mesh::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.35;
+        animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .bg-mesh::before {
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+        top: -10%; left: -10%;
+    }
+
+    .bg-mesh::after {
+        width: 500px; height: 500px;
+        background: radial-gradient(circle, var(--accent-teal), transparent 70%);
+        bottom: -10%; right: -15%;
+        animation-delay: -10s;
+    }
+
+    @keyframes float {
+        0%   { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(60px, 40px) scale(1.15); }
+    }
+
+    .page {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: var(--spacing-l);
+    }
+
+    .container {
+        width: 100%;
+        max-width: 720px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-l);
+        padding: var(--spacing-xxl) 0;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+    }
+    .back-link:hover { opacity: 0.75; }
+
+    .content {
+        background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0.10) 0%,
+            rgba(255,255,255,0.04) 100%
+        );
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-card);
+        backdrop-filter: blur(40px) saturate(1.6);
+        -webkit-backdrop-filter: blur(40px) saturate(1.6);
+        box-shadow:
+            0 8px 32px rgba(0,0,0,0.35),
+            inset 0 1px 0 rgba(255,255,255,0.08);
+        padding: var(--spacing-xl);
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: var(--spacing-s);
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-top: var(--spacing-xl);
+        margin-bottom: var(--spacing-s);
+        color: var(--text-primary);
+    }
+
+    p, li {
+        font-size: 0.92rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+    }
+
+    p {
+        margin-bottom: var(--spacing-m);
+    }
+
+    ul {
+        padding-left: 1.4em;
+        margin-bottom: var(--spacing-m);
+    }
+
+    li {
+        margin-bottom: var(--spacing-s);
+    }
+
+    a {
+        color: var(--accent-blue);
+        text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    strong {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    footer {
+        padding: var(--spacing-xl) 0 var(--spacing-l);
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-tertiary);
+    }
+
+    footer a {
+        color: var(--text-secondary);
+        text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+        .page { padding: var(--spacing-m); }
+        .content { padding: var(--spacing-l); }
+    }
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+
+<div class="page">
+    <div class="container">
+
+        <a href="../" class="back-link">&larr; Back to SpaceReserve</a>
+
+        <div class="content">
+            <h1>Terms of Service</h1>
+            <p><strong>Effective date:</strong> March 2026</p>
+
+            <h2>1. Acceptance</h2>
+            <p>By downloading or using SpaceReserve ("the App"), you agree to these Terms of Service. If you do not agree, do not use the App.</p>
+
+            <h2>2. Description of Service</h2>
+            <p>SpaceReserve is a reservation management app for hospitality venues. It provides floor-plan editing, booking management, analytics, and related features subject to your subscription tier.</p>
+
+            <h2>3. Subscriptions</h2>
+            <p>SpaceReserve offers auto-renewable subscriptions managed through Apple's App Store. By subscribing you agree to the following:</p>
+            <ul>
+              <li>Payment is charged to your Apple ID account at confirmation of purchase.</li>
+              <li>Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period.</li>
+              <li>Your account will be charged for renewal within 24 hours prior to the end of the current period at the same price.</li>
+              <li>You can manage and cancel subscriptions in your Apple ID account settings.</li>
+            </ul>
+
+            <h2>4. Free Tier</h2>
+            <p>The Starter tier is provided free of charge with limited features. SpaceReserve reserves the right to modify Starter-tier limits at any time.</p>
+
+            <h2>5. User Responsibilities</h2>
+            <p>You are responsible for all data you enter into the App. You agree not to use the App for any unlawful purpose or in any way that could damage or impair the service.</p>
+
+            <h2>6. Analytics &amp; Crash Reporting</h2>
+            <p>The App can optionally collect anonymous usage analytics and crash reports using Firebase Analytics and Firebase Crashlytics (provided by Google). This data collection is:</p>
+            <ul>
+              <li><strong>Off by default</strong> — no data is collected until you explicitly opt in.</li>
+              <li><strong>Fully optional</strong> — you can enable or disable it at any time in Settings &gt; Privacy.</li>
+              <li><strong>Anonymous</strong> — we never collect guest names, booking details, or any personally identifiable information through analytics.</li>
+            </ul>
+            <p>By opting in, you consent to the processing of anonymous usage data as described in our <a href="../privacy/">Privacy Policy</a>. Analytics data may be processed by Google on servers located outside the EU under Standard Contractual Clauses as required by GDPR.</p>
+
+            <h2>7. Intellectual Property</h2>
+            <p>All content, design, and code in SpaceReserve are the intellectual property of the developer unless otherwise stated. You may not copy, modify, or distribute any part of the App.</p>
+
+            <h2>8. Data &amp; Privacy</h2>
+            <p>Your use of the App is also governed by our <a href="../privacy/">Privacy Policy</a>. Booking data is stored locally on your device and, if enabled, synced via iCloud under your Apple ID. You have the right to export, delete, or manage your data at any time through the App's settings.</p>
+
+            <h2>9. GDPR &amp; Data Protection</h2>
+            <p>If you are located in the European Economic Area (EEA), you have rights under the General Data Protection Regulation (GDPR), including the right to access, rectify, delete, and port your data, and the right to withdraw consent for analytics at any time. See our <a href="../privacy/">Privacy Policy</a> for details on how to exercise these rights.</p>
+
+            <h2>10. Disclaimer of Warranties</h2>
+            <p>The App is provided "as is" without warranty of any kind. We do not guarantee uninterrupted or error-free operation.</p>
+
+            <h2>11. Limitation of Liability</h2>
+            <p>To the maximum extent permitted by law, SpaceReserve and its developer shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App.</p>
+
+            <h2>12. Changes to These Terms</h2>
+            <p>We may update these Terms from time to time. Continued use of the App after changes constitutes acceptance of the revised Terms. If changes materially affect your rights (e.g. data processing), we will notify you within the App.</p>
+
+            <h2>13. Contact</h2>
+            <p>For questions about these Terms, contact us at <a href="mailto:support@spacereserve.app">support@spacereserve.app</a>.</p>
+        </div>
+
+        <footer>
+            &copy; 2026 SpaceReserve &middot; <a href="../privacy/">Privacy Policy</a>
+        </footer>
+
+    </div>
+</div>
+
+</body>
+</html>

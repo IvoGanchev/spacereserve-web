@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - SpaceReserve</title>
+<meta name="description" content="SpaceReserve Privacy Policy. Learn how we handle your data with privacy in mind.">
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="../assets/SpaceReserve_icon.png">
+<link rel="apple-touch-icon" href="../assets/SpaceReserve_icon.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+        --bg-primary:    #0D0D12;
+        --bg-secondary:  #1C1C2E;
+        --glass-white:   rgba(255, 255, 255, 0.08);
+        --glass-border:  rgba(255, 255, 255, 0.12);
+        --text-primary:  #FFFFFF;
+        --text-secondary: rgba(235, 235, 245, 0.6);
+        --text-tertiary:  rgba(235, 235, 245, 0.3);
+        --accent-purple: #7F71FF;
+        --accent-teal:   #6bffd3;
+        --accent-blue:   #5b8def;
+        --radius-card:   20px;
+        --spacing-s:     8px;
+        --spacing-m:     16px;
+        --spacing-l:     24px;
+        --spacing-xl:    40px;
+        --spacing-xxl:   64px;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    .bg-mesh {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .bg-mesh::before,
+    .bg-mesh::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.35;
+        animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .bg-mesh::before {
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+        top: -10%; left: -10%;
+    }
+
+    .bg-mesh::after {
+        width: 500px; height: 500px;
+        background: radial-gradient(circle, var(--accent-teal), transparent 70%);
+        bottom: -10%; right: -15%;
+        animation-delay: -10s;
+    }
+
+    @keyframes float {
+        0%   { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(60px, 40px) scale(1.15); }
+    }
+
+    .page {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: var(--spacing-l);
+    }
+
+    .container {
+        width: 100%;
+        max-width: 720px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-l);
+        padding: var(--spacing-xxl) 0;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+    }
+    .back-link:hover { opacity: 0.75; }
+
+    .content {
+        background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0.10) 0%,
+            rgba(255,255,255,0.04) 100%
+        );
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-card);
+        backdrop-filter: blur(40px) saturate(1.6);
+        -webkit-backdrop-filter: blur(40px) saturate(1.6);
+        box-shadow:
+            0 8px 32px rgba(0,0,0,0.35),
+            inset 0 1px 0 rgba(255,255,255,0.08);
+        padding: var(--spacing-xl);
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: var(--spacing-s);
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-top: var(--spacing-xl);
+        margin-bottom: var(--spacing-s);
+        color: var(--text-primary);
+    }
+
+    p, li {
+        font-size: 0.92rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+    }
+
+    p {
+        margin-bottom: var(--spacing-m);
+    }
+
+    ul {
+        padding-left: 1.4em;
+        margin-bottom: var(--spacing-m);
+    }
+
+    li {
+        margin-bottom: var(--spacing-s);
+    }
+
+    a {
+        color: var(--accent-blue);
+        text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    strong {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    footer {
+        padding: var(--spacing-xl) 0 var(--spacing-l);
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-tertiary);
+    }
+
+    footer a {
+        color: var(--text-secondary);
+        text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+        .page { padding: var(--spacing-m); }
+        .content { padding: var(--spacing-l); }
+    }
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+
+<div class="page">
+    <div class="container">
+
+        <a href="../" class="back-link">&larr; Back to SpaceReserve</a>
+
+        <div class="content">
+            <h1>Privacy Policy</h1>
+            <p><strong>Effective date:</strong> March 2026</p>
+
+            <h2>1. Overview</h2>
+            <p>SpaceReserve ("the App") is designed with privacy in mind. We collect the minimum data necessary to provide and improve the service. This policy complies with the EU General Data Protection Regulation (GDPR) and applicable data-protection laws.</p>
+
+            <h2>2. Data Stored on Your Device</h2>
+            <p>SpaceReserve stores the following data locally on your device:</p>
+            <ul>
+              <li><strong>Venue data:</strong> Floor plans, spaces, and their configurations.</li>
+              <li><strong>Booking data:</strong> Guest names, phone numbers, party sizes, times, and notes.</li>
+              <li><strong>Settings:</strong> Your venue name, working hours, and app preferences.</li>
+            </ul>
+            <p>If you enable iCloud Sync, this data is also stored in your private iCloud container under your Apple ID. We do not have access to your iCloud data.</p>
+
+            <h2>3. Analytics &amp; Crash Reporting (Opt-In Only)</h2>
+            <p>If you choose to opt in, SpaceReserve uses <strong>Firebase Analytics</strong> and <strong>Firebase Crashlytics</strong> (provided by Google) to collect:</p>
+            <ul>
+              <li><strong>Usage data:</strong> Which screens you visit and which features you use (e.g. number of bookings created). This data is anonymous and aggregated — it cannot identify you or your guests.</li>
+              <li><strong>Crash reports:</strong> Technical information about app crashes including device model, OS version, and stack traces. This helps us fix bugs faster.</li>
+            </ul>
+            <p><strong>What we do NOT collect through analytics:</strong></p>
+            <ul>
+              <li>Guest names, phone numbers, or booking details.</li>
+              <li>Your venue name or business information.</li>
+              <li>Precise location data.</li>
+              <li>Any personally identifiable information (PII).</li>
+            </ul>
+            <p>Analytics and crash reporting are <strong>disabled by default</strong>. You are asked for explicit consent when you first use the app, and you can change your choice at any time in Settings &gt; Privacy.</p>
+            <p>Firebase's data processing is governed by <a href="https://firebase.google.com/support/privacy">Google's Firebase Privacy Policy</a>. Data processed by Firebase may be transferred to servers outside the EU; Google provides adequate safeguards under GDPR (Standard Contractual Clauses).</p>
+
+            <h2>4. Data We Do Not Collect</h2>
+            <ul>
+              <li>We do not collect personal data on our servers.</li>
+              <li>We do not use advertising SDKs or sell data to advertisers.</li>
+              <li>We do not share, sell, or transfer your booking or guest data to third parties.</li>
+              <li>We do not track your location.</li>
+            </ul>
+
+            <h2>5. Legal Basis for Processing (GDPR)</h2>
+            <p>Under the GDPR, our legal bases for processing data are:</p>
+            <ul>
+              <li><strong>Consent (Art. 6(1)(a)):</strong> Analytics and crash-report data is only collected after you explicitly opt in.</li>
+              <li><strong>Contract performance (Art. 6(1)(b)):</strong> Local data storage is necessary to provide the reservation-management service you use.</li>
+              <li><strong>Legitimate interest (Art. 6(1)(f)):</strong> Processing subscription receipts to verify your plan status.</li>
+            </ul>
+
+            <h2>6. Your Rights (GDPR)</h2>
+            <p>If you are in the European Economic Area (EEA), you have the right to:</p>
+            <ul>
+              <li><strong>Withdraw consent</strong> for analytics at any time (Settings &gt; Privacy).</li>
+              <li><strong>Access</strong> your data — all booking data is visible within the app.</li>
+              <li><strong>Delete</strong> your data — use Settings &gt; Data &amp; Backup &gt; Delete Guest Data, or Settings &gt; Reset All Data.</li>
+              <li><strong>Data portability</strong> — export your bookings as CSV from Settings &gt; Data &amp; Backup.</li>
+              <li><strong>Lodge a complaint</strong> with your local data-protection authority.</li>
+            </ul>
+
+            <h2>7. Subscription Data</h2>
+            <p>Subscription purchases are processed entirely by Apple through the App Store. We receive only a transaction receipt to verify your subscription status. We do not have access to your payment information.</p>
+
+            <h2>8. Local Notifications</h2>
+            <p>With your permission, SpaceReserve sends local notifications about upcoming reservations. Notification data never leaves your device.</p>
+
+            <h2>9. Data Storage &amp; Security</h2>
+            <p>All data is stored in an encrypted Core Data store on your device. Sensitive preferences (e.g. consent state, authentication flags) are stored in the iOS Keychain. Backups (CSV exports) are saved to locations you choose. We recommend enabling device passcode and biometric authentication for additional security.</p>
+
+            <h2>10. Data Retention</h2>
+            <p>Local booking data is retained until you delete it. If you withdraw analytics consent, no further analytics data is collected. Previously collected anonymous analytics data cannot be linked back to you and is retained by Firebase according to Google's standard retention policies.</p>
+
+            <h2>11. Children's Privacy</h2>
+            <p>SpaceReserve is a business tool not directed at children under 16. We do not knowingly collect data from children.</p>
+
+            <h2>12. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. Changes will be reflected in an updated effective date above. If we make material changes to how we handle analytics data, we will re-request your consent.</p>
+
+            <h2>13. Contact</h2>
+            <p>For questions about this Privacy Policy or to exercise your data-protection rights, contact us at <a href="mailto:support@spacereserve.app">support@spacereserve.app</a>.</p>
+        </div>
+
+        <footer>
+            &copy; 2026 SpaceReserve &middot; <a href="../terms/">Terms of Service</a>
+        </footer>
+
+    </div>
+</div>
+
+</body>
+</html>
