@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpaceReserve - Visual Booking for Your Venue</title>
-    <meta name="description" content="SpaceReserve is an iOS app that lets hospitality staff visually manage bookings on an interactive floor plan. Join the waitlist for early access.">
+    <meta name="description" content="SpaceReserve is an iOS app that lets hospitality staff visually manage bookings on an interactive floor plan. Download now on the App Store.">
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="assets/SpaceReserve_icon.png">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" content="SpaceReserve - Visual Booking for Your Venue">
-    <meta property="og:description" content="Manage reservations on a live floor plan. iOS app launching soon - join the waitlist.">
+    <meta property="og:description" content="Manage reservations on a live floor plan. Now available on the App Store — download SpaceReserve today.">
     <meta property="og:image" content="assets/SpaceReserve_icon.png">
     <meta property="og:type" content="website">
 
@@ -209,6 +209,15 @@
             50% { opacity: 0.5; transform: scale(0.8); }
         }
 
+        .badge--live {
+            background: rgba(52, 199, 89, 0.15);
+            border-color: rgba(52, 199, 89, 0.30);
+            color: var(--accent-green);
+        }
+        .badge--live::before {
+            background: var(--accent-green);
+        }
+
         /* ============================================
            HERO
            ============================================ */
@@ -369,9 +378,9 @@
         }
 
         /* ============================================
-           WAITLIST / CONVERTKIT SECTION
+           APP STORE CTA
            ============================================ */
-        .waitlist {
+        .appstore-cta {
             width: 100%;
             padding: var(--spacing-xl);
             display: flex;
@@ -381,94 +390,47 @@
             text-align: center;
         }
 
-        .waitlist h2 {
+        .appstore-cta h2 {
             font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        .waitlist p {
+        .appstore-cta p {
             font-size: 0.95rem;
             color: var(--text-secondary);
-            max-width: 420px;
+            max-width: 400px;
+            line-height: 1.65;
         }
 
-        /* Waitlist Counter */
-        .waitlist-counter {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-s);
-            padding: 10px 20px;
-            border-radius: var(--radius-pill);
-            background: linear-gradient(
-                135deg,
-                rgba(127, 113, 255, 0.12) 0%,
-                rgba(107, 255, 211, 0.12) 100%
-            );
-            border: 1px solid rgba(127, 113, 255, 0.25);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            animation: pulse-glow 3s ease-in-out infinite;
+        .appstore-btn {
+            display: inline-block;
+            border-radius: 14px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            outline-offset: 4px;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(127, 113, 255, 0.15);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(127, 113, 255, 0.25);
-            }
+        .appstore-btn:hover {
+            transform: scale(1.07) translateY(-4px);
+            box-shadow:
+                0 16px 48px rgba(127, 113, 255, 0.35),
+                0 6px 20px rgba(107, 255, 211, 0.18);
         }
 
-        .waitlist-counter-number {
-            font-size: 1.2rem;
-            font-weight: 800;
-            background: linear-gradient(
-                135deg,
-                var(--accent-purple),
-                var(--accent-teal)
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
+        .appstore-btn:active {
+            transform: scale(0.97);
         }
 
-        .waitlist-counter-icon {
-            font-size: 1rem;
-        }
-
-        /* Google Form embed - dark-mode integration */
-        .form-embed {
-            width: 100%;
-            max-width: 480px;
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: var(--bg-secondary);
-        }
-
-        .form-embed iframe {
+        .appstore-badge {
+            height: 56px;
+            width: auto;
             display: block;
-            width: 100%;
-            height: 380px;
-            border: none;
-            border-radius: 16px;
-            /* Invert the white Google Form into dark mode, then shift hue back */
-            filter: invert(0.88) hue-rotate(180deg) contrast(0.9);
         }
 
-        /* Subtle inner ring for polish */
-        .form-embed::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-            pointer-events: none;
+        .appstore-note {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.02em;
         }
 
         /* ============================================
@@ -577,13 +539,13 @@
             .features { grid-template-columns: 1fr; }
             .page { padding: var(--spacing-m); }
             .container { gap: var(--spacing-xl); }
-            .waitlist { padding: var(--spacing-l); }
+            .appstore-cta { padding: var(--spacing-l); }
             .screenshots { gap: var(--spacing-s); }
             .screenshots img { width: 110px; border-radius: 18px; }
             .screenshots img.screen-center { width: 125px; border-radius: 20px; }
             .screen-label { width: 110px; font-size: 0.6rem; }
             .screen-label.label-center { width: 125px; }
-            .form-embed iframe { height: 420px; }
+            .appstore-badge { height: 44px; }
         }
     </style>
 </head>
@@ -603,7 +565,7 @@
                     class="logo-icon"
                     width="88" height="88"
                 >
-                <span class="badge">Coming Soon on iOS</span>
+                <span class="badge badge--live">Now on the App Store</span>
             </header>
 
             <!-- HERO -->
@@ -666,23 +628,26 @@
                 </div>
             </section>
 
-            <!-- WAITLIST -->
-            <section class="waitlist glass glass--highlight">
-                <h2>Get Early Access</h2>
-                <div class="waitlist-counter">
-                    <span class="waitlist-counter-icon">🎉</span>
-                    <span class="waitlist-counter-number" id="waitlistCount">0</span>
-                    <span>people already joined</span>
-                </div>
-                <p>Be the first to try SpaceReserve when it launches. Drop your email and we'll let you&nbsp;know.</p>
-
-                <div class="form-embed">
-                    <iframe
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSdrUtJgVS32FOnL3t0DhTjY1-907GVPL6UnhZdOJu2Ia9c-vw/viewform?embedded=true"
-                        title="Join the SpaceReserve waitlist"
-                        loading="lazy"
-                    >Loading…</iframe>
-                </div>
+            <!-- APP STORE -->
+            <section class="appstore-cta glass glass--highlight">
+                <h2>Download SpaceReserve</h2>
+                <p>Now live on the App Store. Transform your venue’s floor plan into a real-time booking command center — for free.</p>
+                <a
+                    href="https://apps.apple.com/de/app/spacereserve/id6760550913?l=en-GB"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="appstore-btn"
+                    aria-label="Download SpaceReserve on the App Store"
+                >
+                    <img
+                        src="assets/Download_on_the_App_Store_Badg_wht.svg"
+                        alt="Download on the App Store"
+                        class="appstore-badge"
+                        width="167"
+                        height="56"
+                    >
+                </a>
+                <span class="appstore-note">Free &middot; Requires iOS 16.0 or later</span>
             </section>
 
             <!-- SOCIAL MEDIA -->
@@ -712,39 +677,7 @@
         </div>
     </div>
 
-    <script>
-        // ============================================
-        // WAITLIST COUNTER
-        // ============================================
-        // Update this number manually as people join the waitlist
-        const WAITLIST_COUNT = 3;
 
-        // Animate counter on page load
-        function animateCounter() {
-            const element = document.getElementById('waitlistCount');
-            if (!element) return;
-
-            const target = WAITLIST_COUNT;
-            const duration = 1500; // 1.5 seconds
-            const stepTime = 30; // Update every 30ms
-            const steps = duration / stepTime;
-            const increment = target / steps;
-            let current = 0;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current);
-                }
-            }, stepTime);
-        }
-
-        // Run animation when page loads
-        window.addEventListener('DOMContentLoaded', animateCounter);
-    </script>
 
 </body>
 </html>
